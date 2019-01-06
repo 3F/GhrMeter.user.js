@@ -1,0 +1,42 @@
+{
+  "name": "ghrmeter-userjs",
+  "version": "0.4.0",
+  "description": "An user script to show download counter for each attachment from 'Releases' page on GitHub.com",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/3F/GhrMeter.user.js.git"
+  },
+  "keywords": [
+    "github",
+    "GHR",
+    "Release",
+    "statistics"
+  ],
+  "author": "Denis Kuzmin [ github.com/3F ]",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/3F/GhrMeter.user.js/issues"
+  },
+  "homepage": "https://github.com/3F/GhrMeter.user.js#readme",
+  "devDependencies": {
+    "@babel/core": "^7.2.2",
+    "@babel/preset-env": "^7.2.3",
+    "babelify": "^10.0.0",
+    "browserify": "^16.2.3",
+    "gulp": "^3.9.1",
+    "gulp-babel": "^8.0.0",
+    "gulp-clean": "^0.4.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-replace": "^1.0.0",
+    "gulp-sourcemaps": "^2.6.4",
+    "gulp-uglify": "^3.0.1",
+    "minimist": "^1.2.0",
+    "vinyl-buffer": "^1.0.1",
+    "vinyl-source-stream": "^2.0.0"
+  },
+  "dependencies": {}
+}

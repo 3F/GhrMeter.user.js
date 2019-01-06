@@ -1,0 +1,32 @@
+- - - -
+GhrMeter  :: https://github.com/3F/GhrMeter.user.js
+_ _ _ _
+
+
+[0.5] 2019.01.??
+
+    * NEW: Meet the new project: 'GhrMeter' 
+           'GitHubReleasesCount' Extracted from sandbox into the new project:
+            https://github.com/3F/GhrMeter.user.js
+            
+    * NOTE: Tested via Firefox 64.0 + Greasemonkey 4.7
+    
+[0.4] 2018.08.15 
+
+    * FIXED: Fixed the work with modern GitHub Releases ~ Aug 2018
+    * NOTE: Tested via Firefox 61.0.2 + Greasemonkey 4.6
+    
+[0.3] 2018.04.17 
+
+    * FIXED: Fixed the work with modern GitHub Releases ~(Jan 2018 - Apr 2018)
+    * NOTE: Tested via Firefox 59.0.2 + Greasemonkey 4.3
+    
+[0.2] 2017.08.26 
+
+    * NEW: Individual tags & multi-pages support (+async).
+    * NOTE: Tested via 54.0.1 + Greasemonkey 3.11
+    
+[0.1] 2017.08.25 
+
+    * First idea. GitHubReleasesCount /sandbox: https://github.com/3F/sandbox
+    * NOTE: Tested via Firefox 55.0.3 & 54.0.1 + Greasemonkey 3.11
