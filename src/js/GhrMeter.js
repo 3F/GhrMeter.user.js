@@ -26,25 +26,26 @@
 import GhrmException from './GhrmException';
 import GhrmNullException from './GhmNullException';
 
-export default class GhrMeter extends function(){ this.constructor.prototype.$ =
+export default class GhrMeter
 {
-    /** assets from the releases page */
-    pageFiles: ".release-header + :first-of-type li a",
+    constructor(debug = false)
+    {
+        /** assets from the releases page */
+        this.pageFiles = ".release-header + :first-of-type li a";
 
-    /** 'user/project' from url */
-    usrprj: /^\/([^/]+)\/([^/]+)/g,
+        /** 'user/project' from url */
+        this.usrprj = /^\/([^/]+)\/([^/]+)/g;
 
-    apiserver: 'api.github.com',
-
-    out: {
-        class: 'Label Label--outline Label--outline-green text-gray',
-        style: 'margin-right: 3px;',
-    },
-
-    debug: false,
-
-    /* --------------- */ }}{ /* --------------- */
-
+        this.apiserver = 'api.github.com';
+        
+        this.out = {
+            class: 'Label Label--outline Label--outline-green text-gray',
+            style: 'margin-right: 3px;',
+        };
+        
+        this.debug = debug;
+    }
+    
     /**
      * 
      * @param {Node} elem Where to add counter.
@@ -60,7 +61,7 @@ export default class GhrMeter extends function(){ this.constructor.prototype.$ =
         let _= this;
         elem.insertAdjacentHTML(
             position, // beforebegin, afterbegin, beforeend, afterend
-            "<span class='" + _.$.out.class + "' style='" + _.$.out.style + "'>" + data + "</span>"
+            "<span class='" + _.out.class + "' style='" + _.out.style + "'>" + data + "</span>"
         );
     }
     
@@ -89,15 +90,9 @@ export default class GhrMeter extends function(){ this.constructor.prototype.$ =
 
     reset()
     {
-        // this.$.usrprj.lastIndex = 0;
+        // this.usrprj.lastIndex = 0;
         // TODO: reset added UI controls
         throw new Error('Not implemented yet');
-    }
-    
-    constructor(debug)
-    {
-        super();
-        this.$.debug = debug;
     }
 
     /**
@@ -112,7 +107,7 @@ export default class GhrMeter extends function(){ this.constructor.prototype.$ =
         }
         
         let _= this;
-        for(let root of document.querySelectorAll(_.$.pageFiles))
+        for(let root of document.querySelectorAll(_.pageFiles))
         {
             let durl = root.getAttribute('href');
 
@@ -143,14 +138,14 @@ export default class GhrMeter extends function(){ this.constructor.prototype.$ =
     getInfoAPI()
     {
         // 'usrprj.lastIndex' will contain latest found pos if used /g
-        let l = this.$.usrprj.exec(location.pathname);
+        let l = this.usrprj.exec(location.pathname);
         if(!l) {
             // we already processed this.
             return null;
         }
         
         return location.protocol 
-                + '//' + this.$.apiserver + '/repos/' + l[1] + '/' + l[2] + '/releases';
+                + '//' + this.apiserver + '/repos/' + l[1] + '/' + l[2] + '/releases';
     }
 
     /**
@@ -161,7 +156,7 @@ export default class GhrMeter extends function(){ this.constructor.prototype.$ =
      */
     dbg(msg, ...args)
     {
-        if(!this.$.debug) {
+        if(!this.debug) {
             return;
         }
 

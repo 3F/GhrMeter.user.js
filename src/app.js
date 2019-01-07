@@ -24,7 +24,7 @@
 
 import GhrMeter from './js/GhrMeter';
 
-let ghrm = new GhrMeter(true);
+let ghrm = new GhrMeter(false);
 
 try {
     ghrm.process();
