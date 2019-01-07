@@ -3,12 +3,15 @@ GhrMeter  :: https://github.com/3F/GhrMeter.user.js
 _ _ _ _
 
 
-[0.5] 2019.01.??
+[0.5] 2019.01.07
 
     * NEW: Meet the new project: 'GhrMeter' 
            'GitHubReleasesCount' Extracted from sandbox into the new project:
             https://github.com/3F/GhrMeter.user.js
             
+    * CHANGED: Native implementation via fetch. 
+               Modern GhrMeter has no jQuery dependencies anymore.
+
     * NOTE: Tested via Firefox 64.0 + Greasemonkey 4.7
     
 [0.4] 2018.08.15 
