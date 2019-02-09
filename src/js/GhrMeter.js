@@ -31,7 +31,8 @@ export default class GhrMeter
     constructor(debug = false)
     {
         /** assets from the releases page */
-        this.pageFiles = ".release-header + :first-of-type li a";
+        // this.pageFiles = ".release-header + :first-of-type li a";
+        this.pageFiles = "a[href*=\\/releases\\/download\\/]";
 
         /** 'user/project' from url */
         this.usrprj = /^\/([^/]+)\/([^/]+)/g;
