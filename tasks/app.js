@@ -4,7 +4,19 @@
 
 module.exports = (gulp, cfg, _) => 
 {
-    gulp.task('app-tasks', ['app-build', 'pkg-version']);
+    gulp.task('app-tasks', ['app-build-min', 'app-build-full', 'pkg-version']);
+
+    let abuild = (ismin) => 
+    {
+        const concat = require('gulp-concat');
+        
+        return gulp.src([
+                    cfg.objdir + cfg.srcmain + '.userscript.js',
+                    cfg.objdir + cfg.mfdir(ismin) + cfg.srcmain + '.js'
+                ])
+                .pipe(concat(cfg.appname + (!ismin ? cfg.nonmangled : '') + '.user.js'))
+                .pipe(gulp.dest(cfg.outdir + 'bundle/'));
+    }
 
     let updv = (fi, fo, srch) =>
     {
@@ -35,15 +47,13 @@ module.exports = (gulp, cfg, _) =>
         );
     });
 
-    gulp.task('app-build', ['app-header'], () =>
+    gulp.task('app-build-min', ['app-header'], () =>
     {
-        const concat = require('gulp-concat');
-        
-        return gulp.src([
-                    cfg.objdir + cfg.srcmain + '.userscript.js', 
-                    cfg.objdir + cfg.srcmain + '.js'
-                ])
-                .pipe(concat(cfg.appname + '.user.js'))
-                .pipe(gulp.dest(cfg.outdir + 'bundle/'));
-    });    
+        return abuild(true);
+    });
+
+    gulp.task('app-build-full', ['app-header'], () =>
+    {
+        return abuild(false);
+    });
 };

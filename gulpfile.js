@@ -21,6 +21,11 @@ let cfg =
     /** .ts, .js, ... entry point */
     srcmain: 'app',
 
+    nonmangled: '.non-mangled',
+    mfdir: function(ismin) { return ismin ? '.m/' : '.f/'; },
+
+    babelTrgt: '> 0.25%, not dead',
+
     appname: 'GhrMeter',
 
     /** app version */
