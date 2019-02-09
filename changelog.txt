@@ -2,6 +2,19 @@
 GhrMeter  :: https://github.com/3F/GhrMeter.user.js
 _ _ _ _
 
+[0.6] 2019.02.09
+
+    * FIXED: Fixed the work with modern GitHub Releases ~ February 2019
+    * CHANGED: Added non-mangled version https://github.com/3F/GhrMeter.user.js/releases
+               Use this IF you are worried about safety -_-
+               
+               But anyway, the original src was compiled via Babel 7.
+               Therefore, part of this code it's a generated code for compatibility 
+               with target platforms: '> 0.25%, not dead'
+               
+               Or just compile it yourself: https://github.com/3F/GhrMeter.user.js
+               
+    * NOTE: Tested via Firefox 65.0 + Greasemonkey 4.7
 
 [0.5] 2019.01.07
 

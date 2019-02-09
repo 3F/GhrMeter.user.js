@@ -1,6 +1,6 @@
 {
   "name": "ghrmeter-userjs",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "An user script to show download counter for each attachment from 'Releases' page on GitHub.com",
   "main": "index.js",
   "scripts": {

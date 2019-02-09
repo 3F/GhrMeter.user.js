@@ -36,6 +36,8 @@ Enjoy!
 
 * https://plus.google.com/+DenisKuzmin3F/posts/bGrH3kJTUNm
 
+![](./media/GHR_Assets_February_2019.png)
+
 ![](./media/GhrMeter.user.js.jpg)
 
 ## Changelog
