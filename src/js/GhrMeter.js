@@ -81,7 +81,7 @@ export default class GhrMeter
 
         fetch(url, {
             method: "GET",
-            mode: "same-origin",
+            mode: "cors",
             cache: "no-cache",
         })
         .then(response => response.json())
