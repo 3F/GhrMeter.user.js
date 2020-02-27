@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name        GhrMeter
-// @description Displays download counter for each attachment from 'Releases' page on GitHub.com
+// @description Statistics for each attachment on GitHub Releases page
 // @namespace   net.r_eg.GhrMeter
 // @copyright   Copyright (c) 2017-2020  Denis Kuzmin < x-3F@outlook.com > GitHub/3F
 // @license     MIT

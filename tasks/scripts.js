@@ -2,76 +2,82 @@
  * Copyright (c) 2017-2020  Denis Kuzmin < x-3F@outlook.com > GitHub/3F
  */
 
-module.exports = (gulp, cfg, _) => 
+// TODO: review. Migrated from gulp 3 -> gulp 4
+
+import { src, dest, series, parallel } from 'gulp';
+import { cfg, dsrc } from './config';
+
+import concat from 'gulp-concat-util';
+import browserify from 'browserify';
+import source from 'vinyl-source-stream';
+import buffer from 'vinyl-buffer';
+import uglify from 'gulp-uglify'; // es6: gulp-terser
+import sourcemaps from 'gulp-sourcemaps';
+import beautify from 'gulp-beautify';
+import gulpif from 'gulp-if';
+
+exports.scripts = series
+(
+    jsCompile,
+    parallel(
+        jsMin,
+        jsFull
+    ),
+);
+
+function jspack(ismin)
 {
-    gulp.task('scripts-tasks', ['js-min', 'js-full']);
+    return src(cfg.dir.obj + cfg.src.main + '.js')
+        .pipe(gulpif(cfg.isDebug(), sourcemaps.init({loadMaps: true})))
+        .pipe(uglify({ mangle: ismin }))
+        .pipe(gulpif(!ismin, beautify()))
+        .pipe(gulpif(cfg.isDebug(), sourcemaps.write()))
+        // .pipe(rename({ extname:  cfg.mfdir(ismin) + '.js' }))
+        .pipe(gulpif(!ismin, concat.header('\n\n/* -- @babel/preset-env targets: ' + cfg.babelTrgt + ' -- */\n\n')))
+        .pipe(dest(cfg.dir.obj + cfg.mfdir(ismin)));
+}
 
-    let jspack = (ismin) =>
-    {
-        const uglify        = require('gulp-uglify');
-        // const uglify        = require('gulp-uglify-es').default;
-        const sourcemaps    = require('gulp-sourcemaps');
-        const beautify      = require('gulp-beautify');
-        const concat        = require('gulp-concat-util');
-        
-        return gulp.src(cfg.objdir + cfg.srcmain + '.js')
-            .pipe(_.ifdbg(_=> sourcemaps.init({loadMaps: true})))
-            .pipe(uglify({ mangle: ismin }))
-            .pipe(_.pif(!ismin, beautify))
-            .pipe(_.ifdbg(_=> sourcemaps.write()))
-            // .pipe(rename({ extname:  cfg.mfdir(ismin) + '.js' }))
-            .pipe(_.pif(!ismin, () => 
-                concat.header('\n\n/* -- @babel/preset-env targets: ' + cfg.babelTrgt + ' -- */\n\n'))
-            )
-            .pipe(gulp.dest(cfg.objdir + cfg.mfdir(ismin)));
-    }
+function jsMin()
+{
+    return jspack(true);
+}
+
+function jsFull()
+{
+    return jspack(false);
+}
+
+function jsCompile()
+{
+    let presets = [[
+        "@babel/preset-env",
+        {
+            // "targets": {
+            //     "esmodules": true
+            // }
+            "targets": cfg.babelTrgt,
+        }
+    ]];
     
-    gulp.task('js-min', ['js-compile'], () =>
-    {
-        return jspack(true);
-    });
-
-    gulp.task('js-full', ['js-compile'], () =>
-    {
-        return jspack(false);
-    });
+    // if(!cfg.isDebug()) {
+    //     presets.push(["minify"]);
+    // }
     
-    gulp.task('js-compile', () =>
-    {
-        const browserify    = require('browserify');
-        const source        = require('vinyl-source-stream');
-        const buffer        = require('vinyl-buffer');
-
-        let presets = [[
-            "@babel/preset-env",
-            {
-                // "targets": {
-                //     "esmodules": true
-                // }
-                "targets": cfg.babelTrgt
-            }
-        ]];
-        
-        // if(!cfg.isDebug()) {
-        //     presets.push(["minify"]);
-        // }
-        
-        return browserify(
-                {
-                    basedir: '.',
-                    debug: cfg.isDebug(),
-                    entries: [cfg.srcdir + cfg.srcmain + '.js'],
-                    cache: {},
-                    packageCache: {}
-                })
-                .transform('babelify', 
-                {
-                    "presets": presets,
-                    sourceMaps: cfg.isDebug()
-                })
-                .bundle()
-                .pipe(source(cfg.srcmain + '.js'))
-                .pipe(buffer())
-                .pipe(gulp.dest(cfg.objdir));
-    });
+    return browserify(
+        {
+            basedir: '.',
+            debug: cfg.isDebug(),
+            entries: [cfg.dir.src + cfg.src.main + '.js'],
+            cache: {},
+            packageCache: {}
+        })
+        .transform('babelify', 
+        {
+            "presets": presets,
+            sourceMaps: cfg.isDebug()
+        })
+        .bundle()
+        .pipe(source(cfg.src.main + '.js'))
+        .pipe(buffer())
+        .pipe(dest(cfg.dir.obj));
 }
