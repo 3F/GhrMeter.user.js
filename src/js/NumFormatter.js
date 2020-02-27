@@ -34,6 +34,7 @@ export default class NumFormatter
     /**
      * 
      * @param {number} number Number value to format.
+     * @returns {string} Formatted number.
      */
     format(number)
     {
@@ -53,7 +54,7 @@ export default class NumFormatter
             return (number / 1e3).toFixed(this.fixed) + 'k';
         }
 
-        return number;
+        return number + '';
     }
 
     /**

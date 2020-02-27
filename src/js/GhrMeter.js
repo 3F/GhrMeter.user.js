@@ -150,7 +150,7 @@ export default class GhrMeter
 
             if(!apidata.length) {
                 this.renderRelease(apidata, durl, root);
-                return;
+                continue;
             }
 
             for(let idx in apidata) {
