@@ -1,4 +1,3 @@
-
 /*
  * The MIT License (MIT)
  * 
@@ -74,7 +73,7 @@ export default class UrlApiResolver
      */
     getForTagOrPage()
     {
-        let webpref = '/releases/tag/';
+        const webpref = '/releases/tag/';
         
         let pos = location.pathname.indexOf(webpref);
         if(pos == -1) {
@@ -93,7 +92,7 @@ export default class UrlApiResolver
 
     constructor()
     {
-        let l = this.usrprj.exec(location.pathname);
+        const l = this.usrprj.exec(location.pathname);
         if(!l)
         {
             // null is also possible for second matching when used `/g` flag.

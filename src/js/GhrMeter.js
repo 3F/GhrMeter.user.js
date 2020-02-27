@@ -1,4 +1,3 @@
-
 /*
  * The MIT License (MIT)
  * 
@@ -27,6 +26,7 @@ import UrlApiResolver from './UrlApiResolver';
 import GhrmException from './GhrmException';
 import GhrmNullException from './GhmNullException';
 import Log from './Log';
+import NumFormatter from './NumFormatter';
 
 export default class GhrMeter
 {
@@ -40,6 +40,11 @@ export default class GhrMeter
      * @protected
      */
     uar = new UrlApiResolver();
+
+    /** 
+     * @protected
+     */
+    formatter = new NumFormatter(1);
 
     /** 
      * @private
@@ -57,12 +62,16 @@ export default class GhrMeter
         if(!elem || data < 0) {
             throw new GhrmException('Incorrect data, injectCounter:', elem, data, position); 
         }
+
+        const fdata = this.formatter.format(data);
         
-        let _= this;
+        const _= this;
         elem.insertAdjacentHTML
         (
             position, // beforebegin, afterbegin, beforeend, afterend
-            "<span class='" + _.out.class + "' style='" + _.out.style + "'>" + data + "</span>"
+            "<span class='" + _.out.class
+              + "' style='" + _.out.style 
+              + "' title='Downloaded "+ data +" times'>" + fdata + "</span>"
         );
     }
 
@@ -71,7 +80,7 @@ export default class GhrMeter
      */
     reset()
     {
-        let elems = this.getCounters();
+        const elems = this.getCounters();
         while(elems.length) 
         {
             Log.dbg('Remove [' + elems.length + ']: ' + elems[0].className);
@@ -86,14 +95,14 @@ export default class GhrMeter
     
     process()
     {
-        let _= this;
+        const _= this;
         if(_.isInjected()) {
             Log.dbg('Ignored due to injected state.');
             return;
         }
         Log.dbg('Started for: ' + location.pathname);
 
-        let url = _.uar.getForTagOrPage();
+        const url = _.uar.getForTagOrPage();
         if(!url) {
             Log.dbg('Nothing to process');
             return;

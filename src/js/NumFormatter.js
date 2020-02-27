@@ -22,59 +22,46 @@
  * THE SOFTWARE.
 */
 
-export default class Log
+import Log from "./Log";
+
+export default class NumFormatter
 {
-    static debug = false;
+    /**
+     * Number of digits after the decimal point.
+     */
+    fixed = 2;
 
     /**
-     * Conditional msg. Activated only if {Log.debug} === true.
-     * @param {string} msg
-     * @param  {...any} args 
+     * 
+     * @param {number} number Number value to format.
      */
-    static dbg(msg, ...args)
+    format(number)
     {
-        if(Log.debug === true) {
-            Log.stdout(console.log, msg, ...args);
+        if(!number || number < 0)
+        {
+            Log.dbg('Unexpected value: ', number);
+            return -1;
         }
-    }
 
-    static err(msg, ...args)
-    {
-        Log.stdout(console.error, msg, ...args);
-    }
+        if(number >= 1e6)
+        {
+            return (number / 1e6).toFixed(this.fixed) + 'm';
+        }
 
-    static warn(msg, ...args)
-    {
-        Log.stdout(console.warn, msg, ...args);
-    }
+        if(number >= 1e3)
+        {
+            return (number / 1e3).toFixed(this.fixed) + 'k';
+        }
 
-    static info(msg, ...args)
-    {
-        Log.stdout(console.log, msg, ...args);
+        return number;
     }
 
     /**
-     *
-     * @private
-     * @param {CallableFunction} func Function which is ready to process message.
-     * @param {string} msg 
-     * @param  {...any} args 
+     * 
+     * @param {number} fixed Number of digits after the decimal point. Must be in the range 0 - 20, inclusive.
      */
-    static stdout(func, msg, ...args)
+    constructor(fixed)
     {
-        if(!func) {
-            return;
-        }
-
-        let stamp = new Date().toISOString().substr(11, 12) + ']';
-
-        msg = stamp + '[GhrMeter.user.js] ' + msg;
-        
-        if(!args || args.length < 1) {
-            func(msg);
-        }
-        else {
-            func(msg, args);
-        }
+        this.fixed = fixed;
     }
 }
