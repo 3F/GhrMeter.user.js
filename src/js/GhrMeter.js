@@ -139,7 +139,12 @@ export default class GhrMeter
         {
             let lnk = record.assets[asset];
 
-            if(!lnk.browser_download_url.endsWith(durl)) {
+            // https://github.com/3F/GhrMeter.user.js/issues/3
+            // * web: `/CI-%24(appveyor_build_version)/`
+            // * API: `/CI-%24%28appveyor_build_version%29/`
+            
+            let apiurl = decodeURIComponent(lnk.browser_download_url);
+            if(!apiurl.endsWith(decodeURIComponent(durl))) {
                 continue;
             };
             
