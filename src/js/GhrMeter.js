@@ -40,6 +40,11 @@ export default class GhrMeter
      * @protected
      */
     uar = new UrlApiResolver();
+
+    /** 
+     * @private
+     */
+    ghrmIdent = 'GhrMeterUserJs';
     
     /**
      * 
@@ -60,13 +65,35 @@ export default class GhrMeter
             "<span class='" + _.out.class + "' style='" + _.out.style + "'>" + data + "</span>"
         );
     }
+
+    /**
+     * Resets added UI controls.
+     */
+    reset()
+    {
+        let elems = this.getCounters();
+        while(elems.length) 
+        {
+            Log.dbg('Remove [' + elems.length + ']: ' + elems[0].className);
+            elems[0].remove();
+        }
+    }
+
+    isInjected()
+    {
+        return (this.getCounters().length > 0);
+    }
     
     process()
     {
         let _= this;
+        if(_.isInjected()) {
+            Log.dbg('Ignored due to injected state.');
+            return;
+        }
         Log.dbg('Started for: ' + location.pathname);
 
-        let url = this.uar.getForTagOrPage();
+        let url = _.uar.getForTagOrPage();
         if(!url) {
             Log.dbg('Nothing to process');
             return;
@@ -84,17 +111,11 @@ export default class GhrMeter
         .then(undefined, r => { Log.err(r); }); //TODO:
     }
 
-    reset()
-    {
-        // TODO: reset added UI controls
-        throw new Error('Not implemented yet');
-    }
-
     constructor()
     {
         this.out =
         {
-            class: 'Label Label--outline Label--outline-green text-gray',
+            class: 'Label Label--outline Label--outline-green text-gray ' + this.ghrmIdent,
             style: 'margin-right: 3px;',
         };
     }
@@ -151,5 +172,14 @@ export default class GhrMeter
             Log.dbg('Insert data for #' + lnk.id + ': ' + durl);
             this.injectCounter(root, lnk.download_count);
         }
+    }
+
+    /**
+     * @private
+     * @returns {HTMLCollectionOf<Element>}
+     */
+    getCounters()
+    {
+        return document.getElementsByClassName(this.ghrmIdent);
     }
 }

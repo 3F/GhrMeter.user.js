@@ -67,12 +67,15 @@ export default class Log
             return;
         }
 
-        let stamp = new Date().toISOString().substr(11, 12) + '] ';
+        let stamp = new Date().toISOString().substr(11, 12) + ']';
+
+        msg = stamp + '[GhrMeter.user.js] ' + msg;
+        
         if(!args || args.length < 1) {
-            func(stamp + msg);
+            func(msg);
         }
         else {
-            func(stamp + msg, args);
+            func(msg, args);
         }
     }
 }
