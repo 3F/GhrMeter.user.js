@@ -1,17 +1,41 @@
-- - - -
-GhrMeter  :: https://github.com/3F/GhrMeter.user.js
-_ _ _ _
+- - - - - - - - - - - - - - - - - - - - - - - - -
+GhrMeter - https://github.com/3F/GhrMeter.user.js
+- - - - - - - - - - - - - - - - - - - - - - - - -
+
+
+[0.7] 2020.02.27
+
+    * FIXED: Fixed problems if tags contains symbols such `$()` 
+             e.g: an unevaluated `$(appveyor_build_version)` Issue #3.
+             
+    * FIXED: Fixed incorrect multiple adding of the counters when using cached web page.
+    
+    * NEW: Implemented NumFormatter: k 10^3 + m 10^6.
+    
+    * NEW: Added individual /tags/:tag support.
+           No limits as for `?after=<tag_name>` See related Issue #5.
+    
+    * CHANGED: Up to 100 records per page via UrlApiResolver.
+               See related Issue #5.
+               
+    * NOTE: Tested via Firefox 73.0.1 + Greasemonkey 4.9
+
 
 [0.6.1] 2019.02.10
 
     * FIXED: Possible "Request mode is "same-origin" but the URL's origin is not same as the request origin" #1
+    
     * NOTE: Tested via Firefox 65.0 + Greasemonkey 4.7
+    
     * NOTE: Tested via Firefox 65.0 + Tampermonkey 4.8.5847
+    
     * NOTE: Tested via Chrome 72.0.3626.96 + Tampermonkey 4.7.63 ( Thanks @Jaid )
+
 
 [0.6] 2019.02.09
 
     * FIXED: Fixed the work with modern GitHub Releases ~ February 2019
+    
     * CHANGED: Added non-mangled version https://github.com/3F/GhrMeter.user.js/releases
                Use this IF you are worried about safety -_-
                
@@ -22,6 +46,7 @@ _ _ _ _
                Or just compile it yourself: https://github.com/3F/GhrMeter.user.js
                
     * NOTE: Tested via Firefox 65.0 + Greasemonkey 4.7
+
 
 [0.5] 2019.01.07
 
@@ -34,22 +59,30 @@ _ _ _ _
 
     * NOTE: Tested via Firefox 64.0 + Greasemonkey 4.7
     
+
 [0.4] 2018.08.15 
 
     * FIXED: Fixed the work with modern GitHub Releases ~ Aug 2018
+    
     * NOTE: Tested via Firefox 61.0.2 + Greasemonkey 4.6
     
+
 [0.3] 2018.04.17 
 
     * FIXED: Fixed the work with modern GitHub Releases ~(Jan 2018 - Apr 2018)
+    
     * NOTE: Tested via Firefox 59.0.2 + Greasemonkey 4.3
     
+
 [0.2] 2017.08.26 
 
     * NEW: Individual tags & multi-pages support (+async).
+    
     * NOTE: Tested via 54.0.1 + Greasemonkey 3.11
     
+
 [0.1] 2017.08.25 
 
     * First idea. GitHubReleasesCount /sandbox: https://github.com/3F/sandbox
+    
     * NOTE: Tested via Firefox 55.0.3 & 54.0.1 + Greasemonkey 3.11

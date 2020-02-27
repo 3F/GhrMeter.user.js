@@ -27,14 +27,14 @@ Copyright (c) 2017-2020  Denis Kuzmin < x-3F@outlook.com > GitHub/3F
 
 As the most easy way, you need to have an userscript manager like Greasemonkey, Tampermonkey, and so on. Click **[here](https://3F.github.io/GhrMeter.user.js/releases/latest/)** and follow the installation instructions from your userscript manager.
 
-**Or** add this manually as you prefer. It does not matter "how" because this code will work immediately after loading into DOM.
+**Or** add manually as you prefer. It does not matter "how" because this code will work immediately after loading into DOM.
 
 ### Screenshots
 
-Feb 2019: 
+Feb 2020: 
 
-![](./media/GHR_Assets_February_2019.png)
+![](./media/GhrMeter.user.js.jpg)
 
 Aug 2018: 
 
-![](./media/GhrMeter.user.js.jpg)
+![](./media/GHR_Assets_August_2018.jpg)
