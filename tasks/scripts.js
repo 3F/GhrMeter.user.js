@@ -74,6 +74,9 @@ function jsCompile()
         .transform('babelify', 
         {
             "presets": presets,
+            "plugins": [
+                ["@babel/plugin-proposal-class-properties", { "loose": true }]
+            ],
             sourceMaps: cfg.isDebug()
         })
         .bundle()

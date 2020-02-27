@@ -23,29 +23,23 @@
  * THE SOFTWARE.
 */
 
+import UrlApiResolver from './UrlApiResolver';
 import GhrmException from './GhrmException';
 import GhrmNullException from './GhmNullException';
+import Log from './Log';
 
 export default class GhrMeter
 {
-    constructor(debug = false)
-    {
-        /** assets from the releases page */
-        // this.pageFiles = ".release-header + :first-of-type li a";
-        this.pageFiles = "a[href*=\\/releases\\/download\\/]";
+    /**
+     * Assets from the web releases page.
+     * Github at ~ Aug 2018: ".release-header + :first-of-type li a"
+     */
+    pageFiles = "a[href*=\\/releases\\/download\\/]";
 
-        /** 'user/project' from url */
-        this.usrprj = /^\/([^/]+)\/([^/]+)/g;
-
-        this.apiserver = 'api.github.com';
-        
-        this.out = {
-            class: 'Label Label--outline Label--outline-green text-gray',
-            style: 'margin-right: 3px;',
-        };
-        
-        this.debug = debug;
-    }
+    /**
+     * @protected
+     */
+    uar = new UrlApiResolver();
     
     /**
      * 
@@ -60,7 +54,8 @@ export default class GhrMeter
         }
         
         let _= this;
-        elem.insertAdjacentHTML(
+        elem.insertAdjacentHTML
+        (
             position, // beforebegin, afterbegin, beforeend, afterend
             "<span class='" + _.out.class + "' style='" + _.out.style + "'>" + data + "</span>"
         );
@@ -69,15 +64,15 @@ export default class GhrMeter
     process()
     {
         let _= this;
-        _.dbg('started for: ' + location.pathname);
+        Log.dbg('Started for: ' + location.pathname);
 
-        let url = _.getInfoAPI();
+        let url = this.uar.getForTagOrPage();
         if(!url) {
-            _.dbg('nothing to process');
+            Log.dbg('Nothing to process');
             return;
         }
         
-        _.dbg('get info: ' + url);
+        Log.dbg('Get info: ' + url);
 
         fetch(url, {
             method: "GET",
@@ -85,15 +80,23 @@ export default class GhrMeter
             cache: "no-cache",
         })
         .then(response => response.json())
-        .then(apidata => _.renderUI(apidata))
-        .then(undefined, r => { throw new GhrmException(r); });
+        .then(apidata => _.render(apidata))
+        .then(undefined, r => { Log.err(r); }); //TODO:
     }
 
     reset()
     {
-        // this.usrprj.lastIndex = 0;
         // TODO: reset added UI controls
         throw new Error('Not implemented yet');
+    }
+
+    constructor()
+    {
+        this.out =
+        {
+            class: 'Label Label--outline Label--outline-green text-gray',
+            style: 'margin-right: 3px;',
+        };
     }
 
     /**
@@ -101,14 +104,13 @@ export default class GhrMeter
      * @protected
      * @param {json} apidata 
      */
-    renderUI(apidata)
+    render(apidata)
     {
         if(!apidata) {
             throw new GhrmNullException('apidata');
         }
-        
-        let _= this;
-        for(let root of document.querySelectorAll(_.pageFiles))
+
+        for(let root of document.querySelectorAll(this.pageFiles))
         {
             let durl = root.getAttribute('href');
 
@@ -116,57 +118,33 @@ export default class GhrMeter
                 continue;
             }
 
-            for(let idx in apidata)
-            for(let asset in apidata[idx].assets)
-            {
-                let lnk = apidata[idx].assets[asset];
+            if(!apidata.length) {
+                this.renderRelease(apidata, durl, root);
+                return;
+            }
 
-                if(!lnk.browser_download_url.endsWith(durl)) {
-                    continue;
-                };
-                
-                _.dbg('insert data for #' + lnk.id + ': ' + durl);
-                _.injectCounter(root, lnk.download_count);
+            for(let idx in apidata) {
+                this.renderRelease(apidata[idx], durl, root);
             }
         }
     }
 
     /**
-     * 
      * @protected
-     * @returns {string}
+     * @param {json} Specific record to render release.
      */
-    getInfoAPI()
+    renderRelease(record, durl, root)
     {
-        // 'usrprj.lastIndex' will contain latest found pos if used /g
-        let l = this.usrprj.exec(location.pathname);
-        if(!l) {
-            // we already processed this.
-            return null;
-        }
-        
-        return location.protocol 
-                + '//' + this.apiserver + '/repos/' + l[1] + '/' + l[2] + '/releases';
-    }
+        for(let asset in record.assets)
+        {
+            let lnk = record.assets[asset];
 
-    /**
-     * 
-     * @protected
-     * @param {string} msg 
-     * @param  {...any} args 
-     */
-    dbg(msg, ...args)
-    {
-        if(!this.debug) {
-            return;
-        }
-
-        let stamp = new Date().toISOString().substr(11, 12) + '] ';
-        if(!args || args.length < 1) {
-            console.log(stamp + msg);
-        }
-        else {
-            console.log(stamp + msg, args);
+            if(!lnk.browser_download_url.endsWith(durl)) {
+                continue;
+            };
+            
+            Log.dbg('Insert data for #' + lnk.id + ': ' + durl);
+            this.injectCounter(root, lnk.download_count);
         }
     }
 }

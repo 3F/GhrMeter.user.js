@@ -1,3 +1,4 @@
+
 /*
  * The MIT License (MIT)
  * 
@@ -22,20 +23,56 @@
  * THE SOFTWARE.
 */
 
-import GhrMeter from './js/GhrMeter';
-import Log from './js/Log';
-
-Log.debug   = false;
-let ghrm    = new GhrMeter();
-
-try
+export default class Log
 {
-    ghrm.process();
-}
-catch(ex)
-{
-    Log.err('Something went wrong: ', ex);
-}
+    static debug = false;
 
-// when async loading per page
-document.addEventListener('pjax:success', () => ghrm.process());
+    /**
+     * Conditional msg. Activated only if {Log.debug} === true.
+     * @param {string} msg
+     * @param  {...any} args 
+     */
+    static dbg(msg, ...args)
+    {
+        if(Log.debug === true) {
+            Log.stdout(console.log, msg, ...args);
+        }
+    }
+
+    static err(msg, ...args)
+    {
+        Log.stdout(console.error, msg, ...args);
+    }
+
+    static warn(msg, ...args)
+    {
+        Log.stdout(console.warn, msg, ...args);
+    }
+
+    static info(msg, ...args)
+    {
+        Log.stdout(console.log, msg, ...args);
+    }
+
+    /**
+     *
+     * @private
+     * @param {CallableFunction} func Function which is ready to process message.
+     * @param {string} msg 
+     * @param  {...any} args 
+     */
+    static stdout(func, msg, ...args)
+    {
+        if(!func) {
+            return;
+        }
+
+        let stamp = new Date().toISOString().substr(11, 12) + '] ';
+        if(!args || args.length < 1) {
+            func(stamp + msg);
+        }
+        else {
+            func(stamp + msg, args);
+        }
+    }
+}
