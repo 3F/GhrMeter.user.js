@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2018 Denis Kuzmin < entry.reg@gmail.com > :: github.com/3F
+ * Copyright (c) 2017-2020  Denis Kuzmin < x-3F@outlook.com > GitHub/3F
  */
 
 'use strict';

@@ -2,7 +2,7 @@
 // @name        GhrMeter
 // @description Displays download counter for each attachment from 'Releases' page on GitHub.com
 // @namespace   net.r_eg.GhrMeter
-// @copyright   2017-2019  Denis Kuzmin < entry.reg@gmail.com >
+// @copyright   Copyright (c) 2017-2020  Denis Kuzmin < x-3F@outlook.com > GitHub/3F
 // @license     MIT
 // @author      https://github.com/3F
 // @version     .

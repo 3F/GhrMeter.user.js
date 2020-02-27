@@ -1,45 +1,40 @@
 ## [GhrMeter.user.js](https://github.com/3F/GhrMeter.user.js)
 
-An user script to show download counter for each attachment from 'Releases' page on GitHub.com
+An user script to show statistics for each attachment from 'Releases' page on GitHub.com
 
-**GhrMeter** has been extracted from my [:: sandbox ::](https://github.com/3F/sandbox) (GitHubReleasesCount). Still under the MIT license.
+Extracted from my [:: sandbox ::](https://github.com/3F/sandbox) *(known as a GitHubReleasesCount)* Under the MIT license 🎉 [Enjoy!](https://github.com/3F)
 
-[![Build status](https://ci.appveyor.com/api/projects/status/drvcdb044e7ye469/branch/master?svg=true)](https://ci.appveyor.com/project/3Fs/ghrmeter-user-js/branch/master)
-[![release-src](https://img.shields.io/github/release/3F/GhrMeter.user.js.svg)](https://github.com/3F/GhrMeter.user.js/releases/latest)
+[![Build status](https://ci.appveyor.com/api/projects/status/pjery3pc3ketwewp/branch/master?svg=true)](https://ci.appveyor.com/project/3Fs/ghrmeter-user-js-github/branch/master)
+[![release](https://img.shields.io/github/release/3F/GhrMeter.user.js.svg)](https://github.com/3F/GhrMeter.user.js/releases/latest)
 [![License](https://img.shields.io/badge/License-MIT-74A5C2.svg)](https://github.com/3F/GhrMeter.user.js/blob/master/License.txt)
 
 **Download:** [GhrMeter.user.js](https://3F.github.io/GhrMeter.user.js/releases/latest/)
 
-* [/releases](https://github.com/3F/GhrMeter.user.js/releases) [ [latest](https://github.com/3F/GhrMeter.user.js/releases/latest) ]
+* Minified + **Non**-minified [/releases](https://github.com/3F/GhrMeter.user.js/releases) [ [latest](https://github.com/3F/GhrMeter.user.js/releases/latest) ]
+* *[Changelog](./changelog.txt)*
 
 ## License
 
 The [MIT License (MIT)](https://github.com/3F/GhrMeter.user.js/blob/master/License.txt)
 
 ```
-Copyright (c) 2017-2019  Denis Kuzmin < entry.reg@gmail.com > :: github.com/3F
+Copyright (c) 2017-2020  Denis Kuzmin < x-3F@outlook.com > GitHub/3F
 ```
 
-[[ ☕ ]](https://3F.github.io/Donation/)
+[ [ ☕ Donate ](https://3F.github.com/Donation/) ]
 
-### How to use
+### How to install
 
-As the most easy way, you need to have an userscript manager like Greasemonkey, Tampermonkey, and so on.
+As the most easy way, you need to have an userscript manager like Greasemonkey, Tampermonkey, and so on. Click **[here](https://3F.github.io/GhrMeter.user.js/releases/latest/)** and follow the installation instructions from your userscript manager.
 
-Then, either just click **[here](https://3F.github.io/GhrMeter.user.js/releases/latest/)** and follow the installation instructions from your userscript manager.
+**Or** add this manually as you prefer. It does not matter "how" because this code will work immediately after loading into DOM.
 
-**Or** add this manually(again via userscript manager), **or** use any other your favorite way. It does not matter because this code will work immediately after loading into DOM.
+### Screenshots
 
-Enjoy!
-
-### Social
-
-* https://plus.google.com/+DenisKuzmin3F/posts/bGrH3kJTUNm
+Feb 2019: 
 
 ![](./media/GHR_Assets_February_2019.png)
 
+Aug 2018: 
+
 ![](./media/GhrMeter.user.js.jpg)
-
-## Changelog
-
-* [changelog.txt](./changelog.txt)
