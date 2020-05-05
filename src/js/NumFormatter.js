@@ -38,7 +38,7 @@ export default class NumFormatter
      */
     format(number)
     {
-        if(!number || number < 0)
+        if(!this.isValid(number))
         {
             Log.dbg('Unexpected value: ', number);
             return -1;
@@ -64,5 +64,14 @@ export default class NumFormatter
     constructor(fixed)
     {
         this.fixed = fixed;
+    }
+
+    /**
+     * @private
+     * @returns {boolean}
+     */
+    isValid(n)
+    {
+        return !isNaN(parseFloat(n)) && isFinite(n) && n >= 0;
     }
 }
