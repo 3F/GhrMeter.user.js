@@ -1,6 +1,6 @@
 {
   "name": "ghrmeter-userjs",
-  "version": "0.7.0",
+  "version": "0.7.1",
   "description": "Statistics for each attachment on GitHub Releases page",
   "main": "index.js",
   "scripts": {
